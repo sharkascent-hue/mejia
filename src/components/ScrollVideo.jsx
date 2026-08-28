@@ -59,13 +59,44 @@ export default function ScrollVideo() {
           return
         } catch { /* unreachable or timed out — try the next source */ }
       }
-      // Every source failed: leave the blur-up in place rather than a blank hero.
+      // Fetch failed everywhere (some mobile browsers restrict it): let the
+      // video element stream the URL itself instead of giving up.
+      if (!dead) setSrc(media.sources[media.sources.length - 1])
     })()
     return () => {
       dead = true
       if (objectUrl) URL.revokeObjectURL(objectUrl)
     }
   }, [media])
+
+  /* iOS Safari ignores preload and will not fetch video data until load() is
+     called - and often not until a muted play() is attempted. Prime it both
+     ways and treat any of the ready events, or readyState itself, as ready. */
+  useEffect(() => {
+    if (!src) return
+    const el = videoRef.current
+    if (!el) return
+    let done = false
+    const mark = () => {
+      if (done) return
+      done = true
+      setReady(true)
+      el.pause()
+    }
+    for (const ev of ['loadedmetadata', 'loadeddata', 'canplay', 'playing']) {
+      el.addEventListener(ev, mark, { once: true })
+    }
+    el.load()
+    const prime = el.play()
+    if (prime && prime.catch) prime.catch(() => {}) // blocked play is fine; load() still ran
+    const poll = setInterval(() => { if (el.readyState >= 2) { mark(); clearInterval(poll) } }, 250)
+    return () => {
+      clearInterval(poll)
+      for (const ev of ['loadedmetadata', 'loadeddata', 'canplay', 'playing']) {
+        el.removeEventListener(ev, mark)
+      }
+    }
+  }, [src])
 
   /* One seek per animation frame, easing toward the scroll position. No frame
      buffer: at this size the browser decodes on demand for ~zero memory. */
@@ -109,7 +140,13 @@ export default function ScrollVideo() {
             muted
             playsInline
             preload="auto"
-            onLoadedData={() => setReady(true)}
+            onError={() => {
+              // Blob or codec hiccup: fall back to streaming straight from the URL.
+              if (src !== media.sources[media.sources.length - 1]) {
+                setReady(false)
+                setSrc(media.sources[media.sources.length - 1])
+              }
+            }}
             className="absolute inset-0 h-full w-full object-cover transition-opacity duration-500"
             style={{ opacity: ready ? 1 : 0 }}
           />

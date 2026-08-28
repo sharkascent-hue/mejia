@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/video/fence-build-portrait.mp4",
+      "destination": "https://d2ol7oe51mr4n9.cloudfront.net/user_3Ecce44mke0LAFhuakx5m04bD91/f5fbc824-c8c9-44f4-9447-fc67e85e7186.mp4"
+    },
+    {
+      "source": "/video/fence-build.mp4",
+      "destination": "https://d2ol7oe51mr4n9.cloudfront.net/user_3Ecce44mke0LAFhuakx5m04bD91/0fddad46-c769-40bb-8d19-29523d1cbafa.mp4"
+    }
+  ]
+}
