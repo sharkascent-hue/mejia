@@ -35,6 +35,7 @@ export default function Footer() {
         <div className="mt-12 flex flex-col gap-3 border-t border-ink/10 pt-7 text-xs text-ink/45 sm:flex-row sm:justify-between">
           <p>© {new Date().getFullYear()} Mejia Landscaping LLC. All rights reserved.</p>
           <p>Tampa · Brandon · Westchase · Carrollwood · Seminole Heights</p>
+          <p>Website by <a href="https://almlabmarketing.com" target="_blank" rel="noopener" className="transition-colors hover:text-forest">AlmLab</a></p>
         </div>
       </div>
     </footer>
