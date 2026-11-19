@@ -37,7 +37,7 @@ export default function Footer() {
           <p>Tampa · Brandon · Westchase · Carrollwood · Seminole Heights</p>
         </div>
       </div>
-    <div className="almlab-credit-row" style={{display:'flex',justifyContent:'flex-end',padding:'16px 24px 18px'}}><a className="almlab-credit" href="https://almlabmarketing.com" target="_blank" rel="noopener" style={{color:'#5dff7f',fontWeight:'600',fontSize:'13px',letterSpacing:'.03em',textDecoration:'none',whiteSpace:'nowrap',textShadow:'0 0 4px rgba(93,255,127,.95),0 0 10px rgba(57,255,106,.6),0 0 22px rgba(57,255,106,.35)',background:'#0b100d',border:'1px solid rgba(93,255,127,.35)',borderRadius:'999px',padding:'6px 14px',boxShadow:'0 0 14px rgba(57,255,106,.25)'}}>Website by AlmLab</a></div>
+    <div className="almlab-credit-row" style={{display:'flex',justifyContent:'center',padding:'12px 16px 4px'}}><a className="almlab-credit" href="https://almlabmarketing.com" target="_blank" rel="noopener" aria-label="Website by AlmLab" style={{display:'inline-flex',alignItems:'center',gap:'3px',color:'rgba(0,0,0,.55)',fontSize:'11px',letterSpacing:'.06em',lineHeight:'1',textDecoration:'none',whiteSpace:'nowrap'}}><span>Website by</span><img src="https://almlabmarketing.com/almlab-credit-dark.png" alt="AlmLab" width="74" height="28" loading="lazy" style={{height:'28px',width:'auto',display:'block'}} /></a></div>
       </footer>
   )
 }
